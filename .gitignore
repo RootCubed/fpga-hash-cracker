@@ -1,0 +1,11 @@
+.vscode/
+__pycache__/
+project/*
+!project/project.xpr
+*.vvp
+*.log
+*.gtkw
+*.fst
+complete_collisions
+complete_collisions.exe
+collisions*
