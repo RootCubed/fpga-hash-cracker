@@ -33,8 +33,11 @@ def main():
             line = f.readline().strip()
             if line == "":
                 break
-            if hash(demangler.demangle(prefix + line + suffix)) == goal_hash:
-                results.append(prefix + line + suffix)
+            try:
+                if hash(demangler.demangle(prefix + line + suffix)) == goal_hash:
+                    results.append(prefix + line + suffix)
+            except:
+                pass
 
     with open(col_file + ".filtered", "w") as f:
         f.write("\n".join(results))

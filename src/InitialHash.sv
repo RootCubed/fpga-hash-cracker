@@ -8,7 +8,7 @@ module InitialHash(
     output reg [31:0] hash
 );
 
-parameter PIPELINE_DELAY = 11;
+parameter PIPELINE_DELAY = 14;
 reg [55:0] str_pipeline [0:PIPELINE_DELAY-1];
 
 integer i;

@@ -7,16 +7,18 @@ module NSMBWHashCracker(
     input reset
 );
 
-wire fast_clk;
-clk_wiz clk_wiz_inst(
-    .clk_in(fpgaclk),
-    .clk_out(fast_clk)
+wire clk_slow;
+clk_wiz_0 clk_wiz(
+    .clk_in1(fpgaclk),
+    .clk_out1(clk_slow),
+    .reset(reset),
+    .locked()
 );
 
 Controller #(
-    .CLKS_PER_BIT(851)
+    .CLKS_PER_BIT(1736)
 ) controller(
-    .fpgaclk(fast_clk),
+    .fpgaclk(clk_slow),
     .rx(rx),
     .tx(tx),
     .reset(reset)

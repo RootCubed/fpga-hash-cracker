@@ -14,4 +14,4 @@ set_property IOSTANDARD LVCMOS33 [get_ports rx]
 set_property PACKAGE_PIN U18 [get_ports reset]
 set_property IOSTANDARD LVCMOS33 [get_ports reset]
 
-set_max_delay -from * -to * 10.2
+set_max_delay -from * -to * 5.000

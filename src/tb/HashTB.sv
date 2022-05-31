@@ -84,7 +84,6 @@ initial begin
     uart_rx_write(8'h32);
     uart_rx_write(8'h6f);
     uart_rx_write(8'h4d);
-    #10000
     uart_rx_write(8'h9c);
 end
 

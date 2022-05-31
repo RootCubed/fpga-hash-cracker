@@ -42,16 +42,21 @@ generate
     reg [CSLEN1-1:0] comp1;
     for (ii = 0; ii < CSLEN1; ii = ii + 1) begin
         wire [31:0] res_hash1;
+        reg [31:0] reg_hash1_pipelined;
         wire [7:0] c1 = charset1[ii];
         SingleHash h1(seed, c1[6:0], res_hash1);
+        always @(posedge clk) reg_hash1_pipelined <= res_hash1;
 
         reg [(CSLEN2 / CSDIV2)-1:0] comp2;
         for (iii = 0; iii < CSLEN2; iii = iii + CSDIV2) begin
             wire [31:0] res_hash2;
+            reg [31:0] res_hash2_pipelined;
+            reg [31:0] res_hash2_33_pipelined;
             wire [7:0] c2 = charset2[iii + lastchar_counter];
-            SingleHash h2(res_hash1, c2[6:0], res_hash2);
-            wire [31:0] tmp = res_hash2 * 33;
-            always @(posedge clk) comp2[iii / CSDIV2] <= tmp[31:7] == goal[31:7];
+            SingleHash h2(reg_hash1_pipelined, c2[6:0], res_hash2);
+            always @(posedge clk) res_hash2_pipelined <= res_hash2;
+            always @(posedge clk) res_hash2_33_pipelined <= res_hash2_pipelined * 33;
+            always @(posedge clk) comp2[iii / CSDIV2] <= res_hash2_33_pipelined[31:7] == goal[31:7];
         end
 
         always @(posedge clk) comp1[ii] <= |comp2;

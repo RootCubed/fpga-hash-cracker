@@ -28,17 +28,12 @@ int main(int argc, char **argv) {
         
     fp_out = fopen("collisions_full.txt", "w");
 
-    char * line = NULL;
-    size_t len = 0;
-    size_t read;
-
     uint32_t seed = strtoul(argv[1], NULL, 16);
     uint32_t goalHash = strtoul(argv[2], NULL, 16);
     int numAs = strtoul(argv[3], NULL, 10);
     char strBuf[12];
 
-    while ((read = getline(&line, &len, fp)) != -1) {
-        strcpy(strBuf, line);
+    while (fgets(strBuf, 12, fp) != NULL) {
         strBuf[10] = '\0';
         for (int i = 0; i < charsetSize; i++) {
             for (int j = 0; j < charsetSize; j++) {

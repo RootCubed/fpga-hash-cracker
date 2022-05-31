@@ -85,9 +85,6 @@ def main():
             print(e)
             break
         if line == "RESET":
-            with open("part_strings.txt", "w") as f:
-                f.write("\n".join(fpga_part_strings))
-            print("debug: " + str(count - 1))
             print(f"Search space exhausted. {len(fpga_part_strings)} collisions found.")
             print(f"Run ./complete_collisions {hex(seed)} {hex(goal)} {charsextra} to conclude the search.")
             break
